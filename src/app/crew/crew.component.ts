@@ -1,3 +1,4 @@
+import { escapeIdentifier } from '@angular/compiler/src/output/abstract_emitter';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -17,5 +18,20 @@ export class CrewComponent implements OnInit {
 
   ngOnInit() {
   }
+  memberBeingEdited: object = null;
 
+  add(memberName: string, isFirst: boolean) {
+    this.crew.push({name:memberName, firstMission: isFirst});
+  }
+  remove(member:object) {
+    let index = this.crew.indexOf(member);
+    this.crew.splice(index,1);
+  }
+  edit(member: object) {
+    this.memberBeingEdited = member;
+ }
+  save(name: string, member: object) {
+    member['name'] = name;
+    this.memberBeingEdited = null;
+  }
 }
